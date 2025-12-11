@@ -23,6 +23,7 @@ const checkwinner=() => {
     if(b1!=""&&b1==b2&&b2==b3) {
        
         hh.textContent="WINNER-"+b1;
+        hh.classList.add("win");
         boxes.forEach(box => {
         if(box.innerText=="")
         box.disabled=true;
@@ -32,6 +33,16 @@ const checkwinner=() => {
     } }
     return false;
 };
+const gameover=() => {
+    let e=false;
+     boxes.forEach(box => {
+        if(box.innerText=="")
+        e=true;
+    });
+    if(e==false) {
+        hh.textContent="GAME OVER NO WINNER";
+    }
+}
 boxes.forEach(box => {
     box.addEventListener("click",() => {
         if(turno) {
@@ -46,6 +57,7 @@ boxes.forEach(box => {
         }
         box.disabled=true;
         checkwinner();
+        gameover();
     }
 
     )}
@@ -57,10 +69,13 @@ const disable=() => {
     });
 };
 const enable=() => {
+    hh.classList.remove("win");
+    turno=true;
+    hh.textContent="START THE GAME";
     boxes.forEach(box => {
         box.disabled=false;
         box.innerText="";
-        hh.textContent="START THE GAME";
-    });
+    } 
+);
 }
 r.addEventListener("click",enable);
